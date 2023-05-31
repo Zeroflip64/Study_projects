@@ -12,13 +12,13 @@
 Основная бизнес-метрика для любой сети отелей — её прибыль. Прибыль отеля — это разница между стоимостью номера за все ночи и затраты на обслуживание: как при подготовке номера, так и при проживании постояльца. 
 В отеле есть несколько типов номеров. В зависимости от типа номера назначается стоимость за одну ночь. Есть также затраты на уборку. Если клиент снял номер надолго, то убираются каждые два дня. 
 Стоимость номеров отеля:
-категория A: за ночь — 1 000, разовое обслуживание — 400;
-категория B: за ночь — 800, разовое обслуживание — 350;
-категория C: за ночь — 600, разовое обслуживание — 350;
-категория D: за ночь — 550, разовое обслуживание — 150;
-категория E: за ночь — 500, разовое обслуживание — 150;
-категория F: за ночь — 450, разовое обслуживание — 150;
-категория G: за ночь — 350, разовое обслуживание — 150.
+* категория A: за ночь — 1 000, разовое обслуживание — 400;
+* категория B: за ночь — 800, разовое обслуживание — 350;
+* категория C: за ночь — 600, разовое обслуживание — 350;
+* категория D: за ночь — 550, разовое обслуживание — 150;
+* категория E: за ночь — 500, разовое обслуживание — 150;
+* категория F: за ночь — 450, разовое обслуживание — 150;
+* категория G: за ночь — 350, разовое обслуживание — 150.
 В ценовой политике отеля используются сезонные коэффициенты: весной и осенью цены повышаются на 20%, летом — на 40%.
 Убытки отеля в случае отмены брони номера — это стоимость одной уборки и одной ночи с учётом сезонного коэффициента.
 На разработку системы прогнозирования заложен бюджет — 400 000. При этом необходимо учесть, что внедрение модели должно окупиться за тестовый период. Затраты на разработку должны быть меньше той выручки, которую система принесёт компании.
@@ -32,13 +32,13 @@ To solve this problem, you need to develop a system that predicts the rejection 
 The main business metric for any hotel chain is its profit. The profit of the hotel is the difference between the cost of a room for all nights and the cost of service: both during the preparation of the room and during the stay of the guest.
 The hotel has several types of rooms. Depending on the type of room, the cost per night is assigned. There are also cleaning costs. If the client has rented a room for a long time, then they are cleaned every two days.
 The cost of hotel rooms:
-category A: per night — 1,000, one—time service - 400;
-category B: per night — 800, one—time service - 350;
-category C: per night — 600, one—time service - 350;
-category D: per night — 550, one—time service - 150;
-Category E: 500 per night, one—time service - 150;
-category F: per night — 450, one—time service - 150;
-category G: per night — 350, one—time service - 150.
+* category A: per night — 1,000, one—time service - 400;
+* category B: per night — 800, one—time service - 350;
+* category C: per night — 600, one—time service - 350;
+* category D: per night — 550, one—time service - 150;
+* Category E: 500 per night, one—time service - 150;
+* category F: per night — 450, one—time service - 150;
+* category G: per night — 350, one—time service - 150.
 The hotel's pricing policy uses seasonal coefficients: in spring and autumn prices increase by 20%, in summer — by 40%.
 The hotel's losses in case of cancellation of the room reservation are the cost of one cleaning and one night, taking into account the seasonal coefficient.
 The budget for the development of the forecasting system is 400,000. At the same time, it should be taken into account that the implementation of the model should pay off during the test period. Development costs should be less than the revenue that the system will bring to the company.
