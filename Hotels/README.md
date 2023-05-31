@@ -1,4 +1,4 @@
-## [Прогнозирование отказа от брони номера\Predicting the cancellation of a room reservation]()
+## [Прогнозирование отказа от брони номера\Predicting the cancellation of a room reservation](https://github.com/Zeroflip64/Study_projects/blob/main/Hotels/hotels%20(1).ipynb)
 
 ### Цель\Goal
 
@@ -19,6 +19,7 @@
 * категория E: за ночь — 500, разовое обслуживание — 150;
 * категория F: за ночь — 450, разовое обслуживание — 150;
 * категория G: за ночь — 350, разовое обслуживание — 150.
+
 В ценовой политике отеля используются сезонные коэффициенты: весной и осенью цены повышаются на 20%, летом — на 40%.
 Убытки отеля в случае отмены брони номера — это стоимость одной уборки и одной ночи с учётом сезонного коэффициента.
 На разработку системы прогнозирования заложен бюджет — 400 000. При этом необходимо учесть, что внедрение модели должно окупиться за тестовый период. Затраты на разработку должны быть меньше той выручки, которую система принесёт компании.
@@ -39,6 +40,7 @@ The cost of hotel rooms:
 * Category E: 500 per night, one—time service - 150;
 * category F: per night — 450, one—time service - 150;
 * category G: per night — 350, one—time service - 150.
+
 The hotel's pricing policy uses seasonal coefficients: in spring and autumn prices increase by 20%, in summer — by 40%.
 The hotel's losses in case of cancellation of the room reservation are the cost of one cleaning and one night, taking into account the seasonal coefficient.
 The budget for the development of the forecasting system is 400,000. At the same time, it should be taken into account that the implementation of the model should pay off during the test period. Development costs should be less than the revenue that the system will bring to the company.
