@@ -1,4 +1,4 @@
-lightgbm==3.3.4
+catboost
 scikit-learn
 seaborn
 matplotlib==3.4.3
