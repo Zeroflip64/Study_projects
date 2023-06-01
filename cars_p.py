@@ -116,7 +116,7 @@ def load_and_preprocess_data():
       df = df[df[column].isin(categories_to_keep)] 
 
 
-  features=df.drop(['Price','how_long','year_created', 'month_created'],axis=1)
+  features=df.drop(['Price'],axis=1)
   target=df['Price']
 
 
