@@ -1,4 +1,4 @@
-## [Оценка риска ДТП по определенному маршруту/Project objective: Assessment of the risk of an accident along a certain route ]()
+## [Оценка риска ДТП по определенному маршруту/Project objective: Assessment of the risk of an accident along a certain route ](https://github.com/Zeroflip64/Study_projects/blob/main/Accident_predict/accident_prediction.ipynb)
 
 ### Цель\Goal
 
