@@ -65,7 +65,7 @@ def load_and_preprocess_data():
 features_df, trained_model = load_and_preprocess_data()
 
 st.write('Модель загруженна')
-
+st.write(features_df.info())
 language = ['RUS', 'ENG']
 selected_variation = st.selectbox('Выберите язык/Choose language', language)
 
