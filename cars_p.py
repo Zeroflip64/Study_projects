@@ -92,7 +92,7 @@ for i, column in enumerate(all_columns):
     elif column == 'PostalCode':
         postal_code = st.text_input(f"{input_label} PostalCode", key='PostalCode')
         selected_values[column] = str(postal_code)
-
+st.write(selected_values)
 if st.checkbox(confirmation_text):
 
     user_df = user_df.append(selected_values, ignore_index=True)
