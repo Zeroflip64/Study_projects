@@ -94,11 +94,11 @@ def load_and_preprocess_data():
   df.loc[(df['FuelType'].isna())&(-df['Gearbox'].isna())&(-df['RegistrationYear'].isna())&
                     (-df['Brand'].isna())&(-df['Model'].isna()),'FuelType']=missing(df,['Gearbox','Brand','Model','RegistrationYear'],'FuelType')
     
-  df = df.reset_index(drop=True)
+  
 
-  df['FuelType']=df.groupby(['Brand','RegistrationYear','Model'])['FuelType'].apply(lambda x: x.ffill().bfill())
-  df['VehicleType']=df.groupby(['Brand','Model','RegistrationYear'])['VehicleType'].apply(lambda x: x.ffill().bfill())
-  df['Gearbox']=df.groupby(['Brand','Model','RegistrationYear'])['Gearbox'].apply(lambda x: x.ffill().bfill())
+  df['FuelType'] = df.groupby(['Brand','RegistrationYear','Model'])['FuelType'].apply(lambda x: x.ffill().bfill()).reset_index(drop=True)
+  df['VehicleType']=df.groupby(['Brand','Model','RegistrationYear'])['VehicleType'].apply(lambda x: x.ffill().bfill()).reset_index(drop=True)
+  df['Gearbox']=df.groupby(['Brand','Model','RegistrationYear'])['Gearbox'].apply(lambda x: x.ffill().bfill()).reset_index(drop=True)
 
   df=df.dropna()
   df=df.drop_duplicates()
