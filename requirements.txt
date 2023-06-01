@@ -1,4 +1,2 @@
-numpy
-sklearn
-lightgbm
-seaborn
+lightgbm==3.2.1
+
