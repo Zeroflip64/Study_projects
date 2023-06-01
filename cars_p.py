@@ -25,7 +25,7 @@ from lightgbm import LGBMRegressor
 
 
 
-@st.cache_data()
+@st.cache_data(persist="disk")
 def load_and_preprocess_data():
   url = 'https://raw.githubusercontent.com/Zeroflip64/Study_projects/main/cars.csv'
   df = pd.read_csv(url)
@@ -55,7 +55,7 @@ def load_and_preprocess_data():
       ('selection',feature_selection),('model',model)])
       
 
-      grid = RandomizedSearchCV(pipeline, param, cv=5,scoring='neg_root_mean_squared_error')
+      grid = RandomizedSearchCV(pipeline, param, cv=3,scoring='neg_root_mean_squared_error')
       grid.fit(features, target)
       
 
@@ -63,7 +63,6 @@ def load_and_preprocess_data():
 
   light=(study(features_train,target_train,{'selection__k': [3, 6, 10],'model__learning_rate': [0.01, 0.1, 1],'model__num_leaves': [32, 64, 128],'model__max_depth': [4, 6, 8]},LGBMRegressor()))
   return features,light
-
 
 features_df, trained_model = load_and_preprocess_data()
 
