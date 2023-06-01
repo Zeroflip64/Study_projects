@@ -27,8 +27,8 @@ from lightgbm import LGBMRegressor
 
 @st.cache_data()
 def load_and_preprocess_data():
-  url='https://drive.google.com/uc?export=download&id=14J39tFI-axYXkBRPlvyqeWibm4fKeKef'
-  df=pd.read_csv(url)
+  url = 'https://raw.githubusercontent.com/Zeroflip64/Study_projects/main/cars.csv'
+  df = pd.read_csv(url)
 
   
 
