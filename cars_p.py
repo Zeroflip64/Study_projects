@@ -60,7 +60,7 @@ def study(features,target,param,model):
 
   return grid
 
-light=study(features_train,target_train,{'selection__k': [3, 6, 10],'model__n_estimators': range(10,70,20),'model__max_depth': [4, 6, 8],'model__min_samples_split': [2, 4, 8]},RandomForestRegressor(random_state=1224))
+light=study(features_train,target_train,{'selection__k': [3, 6, 10],'model__learning_rate':[0.01,0.1,1],'model__l2_leaf_reg': [0.1, 1, 10],'model__n_estimators': [100, 500, 100],'model__depth':[4,6,8]},CatBoostRegressor(verbose=False))
 
 trained_model=light
 features_df=features
