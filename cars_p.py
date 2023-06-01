@@ -49,10 +49,11 @@ def load_and_preprocess_data():
 features_df, trained_model = load_and_preprocess_data()
 
 st.write('Модель загруженна')
-st.write(features_df)
+
 language = ['RUS', 'ENG']
 selected_variation = st.selectbox('Выберите язык/Choose language', language)
 
+# Depending on the selected language, show different UI text
 if selected_variation == 'RUS':
     input_label = 'Введите значение для'
     error_message = 'Недопустимый числовой ввод для'
@@ -65,18 +66,20 @@ elif selected_variation == 'ENG':
 selected_values = {}
 all_columns = features_df.columns.tolist()
 
+
 user_df = pd.DataFrame(columns=all_columns)
+
 for i, column in enumerate(all_columns):
     if features_df[column].dtypes=='object':
         unique_values = features_df[column].unique().tolist()
         
-        # Create a selectbox for each column
+
         selected_value = st.selectbox(f'{input_label} {column}', unique_values, key=column)
         
-        # Filter the DataFrame based on the selected value for the next selectboxes
+
         features_df = features_df[features_df[column] == selected_value]
 
-        # Store the selected value
+
         selected_values[column] = selected_value
         
     elif pd.api.types.is_numeric_dtype(features_df[column]):
@@ -88,6 +91,7 @@ for i, column in enumerate(all_columns):
             except ValueError:
                 st.error(f"{error_message} {column}")
 
+
     elif column == 'PostalCode':
         postal_code = st.text_input(f"{input_label} PostalCode", key='PostalCode')
         selected_values[column] = str(postal_code)
@@ -96,6 +100,6 @@ if st.checkbox(confirmation_text):
     # Add the user's selections to the new DataFrame
     user_df = user_df.append(selected_values, ignore_index=True)
 
-    # Show the user's selections DataFrame
+
     st.dataframe(user_df)
     st.write(f'Стоимость вашей машины : {np.round(*trained_model.predict(user_df),2)} EUR')
