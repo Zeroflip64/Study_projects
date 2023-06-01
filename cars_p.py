@@ -103,13 +103,6 @@ def load_and_preprocess_data():
   df=df.dropna()
   df=df.drop_duplicates()
 
-  df['how_long']=(df['LastSeen']-df['DateCreated']).astype('timedelta64[D]')
-
-  df['year_created']=(pd.DatetimeIndex(df['DateCreated']).year).astype("category")
-
-  df['month_created']=pd.DatetimeIndex(df['DateCreated']).month.astype("category")
-
-  df['Repaired']=np.where(df['Repaired']=='yes',1,0)
   for i in ['RegistrationYear','FuelType','Repaired']:
       df[i]=df[i].astype("category")
 
