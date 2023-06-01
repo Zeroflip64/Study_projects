@@ -57,10 +57,28 @@ if selected_variation == 'RUS':
     input_label = 'Введите значение для'
     error_message = 'Недопустимый числовой ввод для'
     confirmation_text = 'Подтвердите ваши данные'
+    text_descriptions = {
+        'VehicleType': 'тип кузова',
+        'Gearbox': 'коробка передач',
+        'Power': 'мощность двигателя',
+        'Kilometer': 'Пробег',
+        'FuelType': 'тип топлива',
+        'Repaired': 'было ли аварии или нет и что нужно указать либо 1, либо 0',
+        'PostalCode': 'индекс вашего города',
+    }
 elif selected_variation == 'ENG':
     input_label = 'Enter a value for'
     error_message = 'Invalid numeric input for'
     confirmation_text = 'Confirm your data'
+    text_descriptions = {
+        'VehicleType': 'the body type',
+        'Gearbox': 'gearbox',
+        'Power': 'engine power',
+        'Kilometer': 'Traveled',
+        'FuelType': 'fuel type',
+        'Repaired': 'whether there was an accident or not, and you need to specify either 1 or 0',
+        'PostalCode': 'the index of your city',
+    }
 
 selected_values = {}
 all_columns = features_df.columns.tolist()
@@ -71,17 +89,12 @@ temp_df = features_df.copy()  # Create a temporary copy of the DataFrame
 for i, column in enumerate(all_columns):
     if temp_df[column].dtypes=='object':
         unique_values = temp_df[column].unique().tolist()
-
-
-        selected_value = st.selectbox(f'{input_label} {column}', unique_values, key=column)
-
-
+        selected_value = st.selectbox(f'{input_label} {column} ({text_descriptions.get(column, "")})', unique_values, key=column)
         temp_df = temp_df[temp_df[column] == selected_value]
-
         selected_values[column] = selected_value
         
     elif pd.api.types.is_numeric_dtype(features_df[column]):
-        numeric_value = st.text_input(f"{input_label} {column}", key=column)
+        numeric_value = st.text_input(f"{input_label} {column} ({text_descriptions.get(column, "")})", key=column)
         if numeric_value:
             try:
                 numeric_value = float(numeric_value)
@@ -90,12 +103,12 @@ for i, column in enumerate(all_columns):
                 st.error(f"{error_message} {column}")
 
     elif column == 'PostalCode':
-        postal_code = st.text_input(f"{input_label} PostalCode", key='PostalCode')
+        postal_code = st.text_input(f"{input_label} PostalCode ({text_descriptions.get('PostalCode', '')})", key='PostalCode')
         selected_values[column] = str(postal_code)
         
 user_df=pd.DataFrame([selected_values])       
 st.write(user_df)
 
 if st.checkbox(confirmation_text):
+    st.write(f'Стоимость вашей машины : {np.round(*trained_model.predict(user_df),2)} EUR') 
 
-    st.write(f'Стоимость вашей машины : {np.round(*trained_model.predict(user_df),2)} EUR')
