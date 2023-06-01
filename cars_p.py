@@ -25,46 +25,45 @@ from lightgbm import LGBMRegressor
 
 
 
-@st.cache_data(persist="disk")
-def load_and_preprocess_data():
-  url = 'https://raw.githubusercontent.com/Zeroflip64/Study_projects/main/cars.csv'
-  df = pd.read_csv(url)
 
-  
-
-
-  features=df.drop(['Price'],axis=1)
-  target=df['Price']
+url = 'https://raw.githubusercontent.com/Zeroflip64/Study_projects/main/cars.csv'
+df = pd.read_csv(url)
 
 
 
-  features_train,fetures_test,target_train,target_test=train_test_split(features,target,test_size=0.25,random_state=345,shuffle=target)
 
-  pre=make_column_transformer((OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1),[i for i in features.columns  if features[i].dtype !='int']),
-                              (StandardScaler(),[i for i in features.columns  if features[i].dtype =='int' and i!='Price']))
-
+features=df.drop(['Price'],axis=1)
+target=df['Price']
 
 
-  def study(features,target,param,model):
-      
-      
-      
-      feature_selection = SelectKBest(score_func=f_regression)
 
-      pipeline = Pipeline([('preprocesing',pre),
-      ('selection',feature_selection),('model',model)])
-      
+features_train,fetures_test,target_train,target_test=train_test_split(features,target,test_size=0.25,random_state=345,shuffle=target)
 
-      grid = RandomizedSearchCV(pipeline, param, cv=3,scoring='neg_root_mean_squared_error')
-      grid.fit(features, target)
-      
+pre=make_column_transformer((OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1),[i for i in features.columns  if features[i].dtype !='int']),
+                          (StandardScaler(),[i for i in features.columns  if features[i].dtype =='int' and i!='Price']))
 
-      return grid
 
-  light=(study(features_train,target_train,{'selection__k': [3, 6, 10],'model__learning_rate': [0.01, 0.1, 1],'model__num_leaves': [32, 64, 128],'model__max_depth': [4, 6, 8]},LGBMRegressor()))
-  return features,light
 
-features_df, trained_model = load_and_preprocess_data()
+def study(features,target,param,model):
+
+
+
+  feature_selection = SelectKBest(score_func=f_regression)
+
+  pipeline = Pipeline([('preprocesing',pre),
+  ('selection',feature_selection),('model',model)])
+
+
+  grid = RandomizedSearchCV(pipeline, param, cv=3,scoring='neg_root_mean_squared_error')
+  grid.fit(features, target)
+
+
+  return grid
+
+light=(study(features_train,target_train,{'selection__k': [3, 6, 10],'model__learning_rate': [0.01, 0.1, 1],'model__num_leaves': [32, 64, 128],'model__max_depth': [4, 6, 8]},LGBMRegressor()))
+
+trained_model=light
+features_df=features
 
 st.write('Модель загруженна')
 
