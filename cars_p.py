@@ -27,93 +27,10 @@ from lightgbm import LGBMRegressor
 
 @st.cache_data()
 def load_and_preprocess_data():
-  url='https://drive.google.com/uc?export=download&id=130cth9oH1Q4ErTvz5SJ-bDjTidi_6Rqa'
+  url='https://drive.google.com/uc?export=download&id=14J39tFI-axYXkBRPlvyqeWibm4fKeKef'
   df=pd.read_csv(url)
 
-  for i in ['PostalCode','Brand','Model','VehicleType','Gearbox']:
-      df[i]=df[i].astype("category")
-  for i in ['LastSeen','DateCrawled','DateCreated']:
-      df[i]=pd.to_datetime(df[i],format='%Y-%m-%d %H:%M:%S')
-
-  df=df.loc[(df['RegistrationYear']<2016) & (df['RegistrationYear']>1910) ]
-  df=df.loc[df['Price']>10]
-  df=df.loc[df['Power']>1]
-
-  def missing(data,features,target):# Функция замены пропусков
-      
-      columns = [i for i in features]
-      
-      
-      new_data = data.loc[(-data[target].isna())&(-data[columns[0]].isna())&(-data[columns[1]].isna())&
-                    (-data[columns[2]].isna())&(-data[columns[3]].isna()),features+[target]]
-
-      predict = data.loc[(data[target].isna())&(-data[columns[0]].isna())&(-data[columns[1]].isna())&
-                    (-data[columns[2]].isna())&(-data[columns[3]].isna()),features]
-      
-      
-      
-      features=new_data.drop(target,axis=1)
-      
-      target=new_data[target]
-      
-      label=LabelEncoder()
-      
-      targets=label.fit_transform(target)
-      
-      
-      encoder=OrdinalEncoder()
-      
-      new_transform=encoder.fit_transform(np.concatenate((features,predict),axis=0))
-      
-      features=new_transform[:new_data.shape[0]]
-      
-      predict=new_transform[new_data.shape[0]:]
-      
-      param={'max_depth':range(4,20,2)}
-      
-      
-      
-      
-      grid=RandomizedSearchCV(DecisionTreeClassifier(),param,cv=3)
-      grid.fit(features,targets)
-      predict=grid.predict(predict)
-      return label.inverse_transform(np.round(predict))
-
-  df.loc[(df['Repaired'].isna())&(-df['Gearbox'].isna())&(-df['RegistrationYear'].isna())&
-                    (-df['Brand'].isna())&(-df['Kilometer'].isna()),'Repaired']=missing(df,['Gearbox','Brand','Kilometer','RegistrationYear'],'Repaired')
-
-  df.loc[(df['Model'].isna())&(-df['Gearbox'].isna())&(-df['RegistrationYear'].isna())&
-                    (-df['Brand'].isna())&(-df['VehicleType'].isna()),'Model']=missing(df,['Gearbox','Brand','VehicleType','RegistrationYear'],'Model')
-
-  df.loc[(df['Gearbox'].isna())&(-df['Model'].isna())&(-df['RegistrationYear'].isna())&
-                    (-df['Brand'].isna())&(-df['VehicleType'].isna()),'Gearbox']=missing(df,['Model','Brand','VehicleType','RegistrationYear'],'Gearbox')
-
-  df.loc[(df['VehicleType'].isna())&(-df['Gearbox'].isna())&(-df['RegistrationYear'].isna())&
-                    (-df['Brand'].isna())&(-df['Model'].isna()),'VehicleType']=missing(df,['Gearbox','Brand','Model','RegistrationYear'],'VehicleType')
-
-  df.loc[(df['FuelType'].isna())&(-df['Gearbox'].isna())&(-df['RegistrationYear'].isna())&
-                    (-df['Brand'].isna())&(-df['Model'].isna()),'FuelType']=missing(df,['Gearbox','Brand','Model','RegistrationYear'],'FuelType')
-    
   
-
-  df['FuelType'] = df.groupby(['Brand','RegistrationYear','Model'])['FuelType'].apply(lambda x: x.ffill().bfill()).reset_index(drop=True)
-  df['VehicleType']=df.groupby(['Brand','Model','RegistrationYear'])['VehicleType'].apply(lambda x: x.ffill().bfill()).reset_index(drop=True)
-  df['Gearbox']=df.groupby(['Brand','Model','RegistrationYear'])['Gearbox'].apply(lambda x: x.ffill().bfill()).reset_index(drop=True)
-
-  df=df.dropna()
-  df=df.drop_duplicates()
-
-  for i in ['RegistrationYear','FuelType','Repaired']:
-      df[i]=df[i].astype("category")
-
-
-  df=df.drop(['DateCrawled','RegistrationMonth','DateCreated','LastSeen','NumberOfPictures'],axis=1)
-  df=df.drop_duplicates()
-
-  for column in df.columns:
-      counts = df[column].value_counts()  
-      categories_to_keep = counts[counts > 10].index  
-      df = df[df[column].isin(categories_to_keep)] 
 
 
   features=df.drop(['Price'],axis=1)
