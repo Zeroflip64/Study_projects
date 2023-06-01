@@ -11,6 +11,7 @@
 * качество предсказания;
 * время обучения модели;
 * время предсказания модели.
+
 ENG:
 The service for the sale of used cars "Not beaten, not painted" is developing an application to attract new customers. It will be possible to find out the market value of your car.
 It is necessary to build a model that knows how to define it. At your disposal are data on the technical characteristics, configuration and prices of other cars.
