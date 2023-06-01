@@ -21,7 +21,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.compose import make_column_transformer,ColumnTransformer
 from sklearn.metrics import mean_squared_error
 from sklearn.feature_selection import SelectKBest, f_regression,f_classif
-from lightgbm import LGBMRegressor
+from catboost import CatBoostRegressor
 
 
 
