@@ -23,41 +23,25 @@ from sklearn.metrics import mean_squared_error
 from sklearn.feature_selection import SelectKBest, f_regression,f_classif
 from catboost import CatBoostRegressor
 
-
-
-
-
 @st.cache_data()
 def load_and_preprocess_data():
   url = 'https://raw.githubusercontent.com/Zeroflip64/Study_projects/main/cars.csv'
   df = pd.read_csv(url)
+    
   features=df.drop(['Price'],axis=1)
   target=df['Price']
-
-
 
   features_train,fetures_test,target_train,target_test=train_test_split(features,target,test_size=0.25,random_state=345,shuffle=target)
 
   pre=make_column_transformer((OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1),[i for i in features.columns  if features[i].dtype !='int']),
                               (StandardScaler(),[i for i in features.columns  if features[i].dtype =='int' and i!='Price']))
-
-
-
   def study(features,target,param,model):
-      
-      
-      
-      feature_selection = SelectKBest(score_func=f_regression)
-
-      pipeline = Pipeline([('preprocesing',pre),
+    feature_selection = SelectKBest(score_func=f_regression)
+    pipeline = Pipeline([('preprocesing',pre),
       ('selection',feature_selection),('model',model)])
-      
-
-      grid = RandomizedSearchCV(pipeline, param, cv=5,scoring='neg_root_mean_squared_error')
-      grid.fit(features, target)
-      
-
-      return grid
+    grid = RandomizedSearchCV(pipeline, param, cv=5,scoring='neg_root_mean_squared_error')
+    grid.fit(features, target)
+    return grid
 
   light=study(features_train,target_train,{'selection__k': [3, 6, 10],'model__learning_rate':[0.01,0.1,1],'model__l2_leaf_reg': [0.1, 1, 10],'model__n_estimators': [100, 500, 100],'model__depth':[4,6,8]},CatBoostRegressor(verbose=False))
   return features,light
@@ -65,7 +49,7 @@ def load_and_preprocess_data():
 features_df, trained_model = load_and_preprocess_data()
 
 st.write('Модель загруженна')
-st.write(features_df.info())
+st.write(features_df)
 language = ['RUS', 'ENG']
 selected_variation = st.selectbox('Выберите язык/Choose language', language)
 
