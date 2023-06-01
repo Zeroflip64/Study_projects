@@ -89,12 +89,14 @@ temp_df = features_df.copy()  # Create a temporary copy of the DataFrame
 for i, column in enumerate(all_columns):
     if temp_df[column].dtypes=='object':
         unique_values = temp_df[column].unique().tolist()
-        selected_value = st.selectbox(f'{input_label} {column} ({text_descriptions.get(column, "")})', unique_values, key=column)
+        description = text_descriptions.get(column, "")
+        selected_value = st.selectbox(f'{input_label} {column} ({description})', unique_values, key=column)
         temp_df = temp_df[temp_df[column] == selected_value]
         selected_values[column] = selected_value
         
     elif pd.api.types.is_numeric_dtype(features_df[column]):
-        numeric_value = st.text_input(f"{input_label} {column} ({text_descriptions.get(column, "")})", key=column)
+        description = text_descriptions.get(column, "")
+        numeric_value = st.text_input(f"{input_label} {column} ({description})", key=column)
         if numeric_value:
             try:
                 numeric_value = float(numeric_value)
@@ -103,7 +105,8 @@ for i, column in enumerate(all_columns):
                 st.error(f"{error_message} {column}")
 
     elif column == 'PostalCode':
-        postal_code = st.text_input(f"{input_label} PostalCode ({text_descriptions.get('PostalCode', '')})", key='PostalCode')
+        description = text_descriptions.get('PostalCode', '')
+        postal_code = st.text_input(f"{input_label} PostalCode ({description})", key='PostalCode')
         selected_values[column] = str(postal_code)
         
 user_df=pd.DataFrame([selected_values])       
@@ -111,4 +114,3 @@ st.write(user_df)
 
 if st.checkbox(confirmation_text):
     st.write(f'Стоимость вашей машины : {np.round(*trained_model.predict(user_df),2)} EUR') 
-
