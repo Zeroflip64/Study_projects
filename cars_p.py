@@ -66,13 +66,9 @@ features_df, trained_model = load_and_preprocess_data()
 
 st.write('Модель загруженна')
 
-
-
-
 language = ['RUS', 'ENG']
 selected_variation = st.selectbox('Выберите язык/Choose language', language)
 
-# Depending on the selected language, show different UI text
 if selected_variation == 'RUS':
     input_label = 'Введите значение для'
     error_message = 'Недопустимый числовой ввод для'
@@ -85,7 +81,6 @@ elif selected_variation == 'ENG':
 selected_values = {}
 all_columns = features_df.columns.tolist()
 
-# Initialize a new DataFrame for storing user's selections
 user_df = pd.DataFrame(columns=all_columns)
 
 for i, column in enumerate(all_columns):
@@ -110,12 +105,10 @@ for i, column in enumerate(all_columns):
             except ValueError:
                 st.error(f"{error_message} {column}")
 
-    # Adding the case for 'PostalCode'
     elif column == 'PostalCode':
         postal_code = st.text_input(f"{input_label} PostalCode", key='PostalCode')
         selected_values[column] = str(postal_code)
 
-# Add a confirmation checkbox
 if st.checkbox(confirmation_text):
     # Add the user's selections to the new DataFrame
     user_df = user_df.append(selected_values, ignore_index=True)
