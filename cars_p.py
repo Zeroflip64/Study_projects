@@ -92,10 +92,10 @@ for i, column in enumerate(all_columns):
     elif column == 'PostalCode':
         postal_code = st.text_input(f"{input_label} PostalCode", key='PostalCode')
         selected_values[column] = str(postal_code)
-st.write(pd.DataFrame([selected_values]))
+        
+user_df=pd.DataFrame([selected_values])       
+st.write(user_df)
+
 if st.checkbox(confirmation_text):
 
-    user_df = user_df.append(selected_values, ignore_index=True)
-
-    st.dataframe(user_df)
     st.write(f'Стоимость вашей машины : {np.round(*trained_model.predict(user_df),2)} EUR')
