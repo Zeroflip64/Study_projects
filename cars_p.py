@@ -67,7 +67,7 @@ all_columns = features_df.columns.tolist()
 
 user_df = pd.DataFrame(columns=all_columns)
 for i, column in enumerate(all_columns):
-    if features_df[column].dtypes=='category':
+    if features_df[column].dtypes=='object':
         unique_values = features_df[column].unique().tolist()
         
         # Create a selectbox for each column
