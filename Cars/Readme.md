@@ -1,4 +1,6 @@
-## [Определение стоимости автомобилей / Determining the cost of cars](https://github.com/Zeroflip64/Study_projects/blob/main/Cars/Cars.ipynb)
+## [Определение стоимости автомобилей / Determining the cost of cars](https://github.com/Zeroflip64/Study_projects/blob/main/Cars/Car.ipynb)
+
+[Приложение](https://zeroflip64-study-projects-cars-p-eoyi8p.streamlit.app/)
 
 ### Цель\Goal
 Необходимо разработать модель которая на основании данных об автомобиле предсказывала бы его соимость. / It is necessary to develop a model that, based on data about the car, would predict its cost.
@@ -19,6 +21,7 @@ It is necessary to build a model that knows how to define it. At your disposal a
 * prediction quality;
 * model training time;
 * model prediction time.
+* 
 ### Project Description
 Проект состоит из несколкьих этапов:
 * Обработка данных и работа с аномалиями.
